@@ -1,0 +1,19 @@
+---
+- name: Install a specific package version
+  hosts: all
+  become: true
+  vars:
+    package_name: nginx
+    package_version: latest
+  tasks:
+
+   - name: Update package cache
+     apt:
+      update_cache: yes
+
+
+   - name: install latest nginx
+     apt:
+       name: "{{ package_name }}"
+       state: "{{ package_version }}"
+        

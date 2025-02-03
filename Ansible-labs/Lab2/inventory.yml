@@ -1,0 +1,9 @@
+all:
+  hosts:
+    172.17.0.3:
+    172.17.0.4:
+      ansible_python_interpreter: /usr/local/bin/python3.9
+    
+    
+      
+

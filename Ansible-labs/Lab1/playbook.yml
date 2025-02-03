@@ -1,0 +1,32 @@
+---
+- name: play1
+  gather_facts: false
+  hosts: all
+  become: true 
+
+  tasks:
+    - name: updating cache
+      apt:
+        update_cache: true
+ 
+    - name: install latest nginx
+      apt:
+       name: nginx
+       state:
+        latest
+        
+    - name: Copy index.html from controller to host 1
+      copy:
+       src: /home/shehab-gamal/Ansible Labs/Ansible-Lab1/Playbooks/index.html
+       dest: /var/www/html/index.html
+      remote_user: iti
+      tags:
+       - update
+       
+    - name: restart nginx service
+      service:
+       name: nginx   
+       state: restarted
+       use: service
+  
+     

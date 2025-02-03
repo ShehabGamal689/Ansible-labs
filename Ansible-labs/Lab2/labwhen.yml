@@ -1,0 +1,29 @@
+---
+- name: Install web server and restart if necessary
+  hosts: all
+  gather_facts: true
+  become: true
+
+  tasks:
+  
+    - name: Install nginx or httpd based on distribution
+      package:
+        name: "{{ 'nginx' if ansible_distribution == 'Ubuntu' else 'httpd' }}"
+        state: latest
+      when: ansible_distribution in ['Ubuntu', 'CentOS']
+
+    - name: Restart nginx if the distribution is Ubuntu
+      service:
+        name: nginx
+        state: restarted
+        use: sysvinit
+      when: ansible_distribution == 'Ubuntu'
+
+
+    - name: Restart httpd if the distribution is CentOS
+      service:
+        name: httpd
+        use: sysvinit
+        state: restarted
+      when: ansible_distribution == 'CentOS'
+

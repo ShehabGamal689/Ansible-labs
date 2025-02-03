@@ -1,0 +1,30 @@
+---
+- name: Install Latest Versions of Packages
+  hosts: all
+  become: true
+  vars:
+    packages_to_install:
+      - nginx
+      - git
+      - apache2
+
+    packages_with_actions:
+      - name: nginx
+        action: present
+      - name: git
+        action: latest
+      - name: apache2
+        action: absent
+
+  tasks:
+    - name: Install latest versions of packages
+      package:
+        name: "{{ item }}"
+        state: latest
+      loop: "{{ packages_to_install }}"
+
+    - name: Manage packages based on specified actions
+      package:
+        name: "{{ item.name }}"
+        state: "{{ item.action }}"
+      loop: "{{ packages_with_actions }}"

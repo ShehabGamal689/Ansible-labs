@@ -1,0 +1,23 @@
+---
+- name: Manage Nginx Installation
+  hosts: all
+  become: true
+  tasks:
+    - name: Update package list
+      apt:
+        update_cache: yes
+      tags:
+        - update
+
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+      tags:
+        - install
+
+    - name: Always run this task
+      debug:
+        msg: "This task runs every time."
+      tags:
+        - always
