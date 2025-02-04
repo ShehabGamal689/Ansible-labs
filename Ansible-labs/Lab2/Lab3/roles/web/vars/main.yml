@@ -1,0 +1,9 @@
+---
+package_name: nginx
+files_to_copy:
+  - index.html
+  - file.css
+  - file.js
+template_name: index.html.j2
+template_message: "Hello From Shehab Gamal."
+
