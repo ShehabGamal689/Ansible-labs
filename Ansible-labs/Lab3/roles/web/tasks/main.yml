@@ -1,0 +1,20 @@
+---
+- name: Install the package
+  apt:
+    name: "{{ package_name }}"
+    state: present
+  
+
+#- name: Trigger handler to copy files
+  #ansible.builtin.command: /bin/true  
+  #changed_when: true  
+  #notify: copying a list of files from controller to host using loop
+
+
+- name: Copying a file from controller to host using template
+  template:
+    src: "{{ template_name }}"
+    dest: "/var/www/html/index.html"
+  notify: Restart service
+  changed_when: true
+
